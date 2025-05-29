@@ -3,6 +3,17 @@ from datos import *
 from helpers import *
 
 def menu_validacion(opcion: str, minimo: int, maximo: int) -> bool:
+    """Valida un menu para que el input no se pase del numero de opciones
+    mediante ASCII
+
+    Args:
+        opcion (str): opcion elegida por el usuario
+        minimo (int): minimo numero del menu en el sistema ASCII
+        maximo (int): maximo numero en el sistema ASCII
+
+    Returns:
+        bool: Devuelve True si la opcion se encuentra dentro del rango
+    """
     validado = False
 
     if len(opcion) == 1:
@@ -11,6 +22,14 @@ def menu_validacion(opcion: str, minimo: int, maximo: int) -> bool:
     return validado
 
 def usuario_nombre_validacion(usuario: str) -> bool:
+    """Valida si el usuario se encuentra en la lista de usuarios
+
+    Args:
+        usuario (str): nombre de usuario
+
+    Returns:
+        bool: Devuelve True si el usuario es encontrado
+    """
     validado = False
     for i in range(len(datos_usuarios)):
         if usuario == datos_usuarios[i]:
@@ -19,6 +38,15 @@ def usuario_nombre_validacion(usuario: str) -> bool:
     return validado
 
 def usuario_password_validacion(password: str) -> bool:
+    """Valida si la contraseña del usuario se encuentra en la lista de contraseñas 
+    del usuarios con su mismo index
+
+    Args:
+        password (str): contraseña del usuario
+
+    Returns:
+        bool: Devuelve True si la contraseña coincide
+    """
     validado = False
     for i in range(len(datos_passwords)):
         if password == datos_passwords[i]:
@@ -27,6 +55,13 @@ def usuario_password_validacion(password: str) -> bool:
     return validado
 
 def usuario_validacion() -> list:
+    """Utilizando la funcion "usuario_nombre_validacion" y "usuario_password_validacion"
+    valida si el usuario y contraseña ingresados son correctos y da 3 intentos por variable para
+    ser ingresados 
+
+    Returns:
+        list: Devuelve True y el usuario de ser correcto
+    """
     intentos = 0
     system("cls")
     usuario = input("Ingrese su nombre de usuario: ")
@@ -61,7 +96,15 @@ def usuario_validacion() -> list:
         print(Fore.RED +"No se ha podido ingresar a la cuenta, volviendo al menu principal."+ Style.RESET_ALL)
     return [validacion, usuario]
 
-def validacion_eleccion_profesional(profesionales: list) -> str:
+def validacion_eleccion_profesional(profesionales: list) -> list:
+    """Chequea en la lista de profesionales mediante un loop si hay coincidencia de nombre o apellido
+
+    Args:
+        profesionales (list): lista de profesionales
+
+    Returns:
+        list: Devuelve True si coincide el profesional y el nombre completo del mismo
+    """
     profesional_validado = False
     profesional_seleccionado = ""
     apellido_encontrado = False
@@ -122,6 +165,15 @@ def validacion_eleccion_profesional(profesionales: list) -> str:
     return [profesional_validado, profesional_seleccionado]
 
 def validacion_servicio(servicios: list, precios: list) -> list:
+    """Valida si el servicio seleccionado es correcto, de ser asi devuelve la informacion del mismo
+
+    Args:
+        servicios (list): lista de servicios
+        precios (list): lista de precios
+
+    Returns:
+        list: Devuelve si el servicio seleccionado es correcto, su nombre y su precio
+    """
     servicio_validado = False
     servicio_seleccionado = ""
     precio_servicio = 0

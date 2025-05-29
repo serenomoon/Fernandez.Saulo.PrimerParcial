@@ -72,6 +72,15 @@ def normalizar_lista_str(datos: list) -> list:
     return lista_modificada
 
 def ordenar_alfabeticamente(lista: list, extra: list = None) -> list:
+    """Ordena alfabeticamente una lista, si hay un extra, lo ordena acorde a la primer lista
+
+    Args:
+        lista (list): lista a ordenar
+        extra (list, optional): lista extra a ordenar. Defaults to None.
+
+    Returns:
+        list: una lista con 2 listas dentro: lista ordenada y lista extra/None
+    """
     lista_ordenada = lista
     extra_ordenado = extra
     todo_odenado = None
@@ -92,6 +101,12 @@ def ordenar_alfabeticamente(lista: list, extra: list = None) -> list:
     return todo_odenado
 
 def añadir_turno(consulta: list, vacunacion: list, quirurgico: list, profesionales: list, servicios: list, pro_seleccionado: str, serv_seleccionado: str) -> list:
+    """Añade un turno a consulta, vacunacion o quirurgico, dependiendo el servicio.
+    Lo acomoda en la lista segun el indice del profesional
+
+    Returns:
+        _type_: lista con el turno sumado a los demas turnos
+    """
     turno_añadido = []
     for i in range(len(profesionales)):
         for j in range(len(servicios)):
@@ -109,6 +124,14 @@ def añadir_turno(consulta: list, vacunacion: list, quirurgico: list, profesiona
     return turno_añadido
 
 def turnos_totales_por_veterinario(profesionales: list, consulta: list, vacunacion: list, quirurgico: list) -> None:
+    """Calcula la cantidad de turnos totales por profesional
+
+    Args:
+        profesionales (list): profesionales
+        consulta (list): lista de consulta
+        vacunacion (list): lista de vacunacion
+        quirurgico (list): lista de post-quirurgico
+    """
     print(Fore.GREEN +"TURNOS TOTALES POR PROFESIONAL")
     print(f"{"\nProfesional":<30}", end="")
     print("Turnos\n"+ Style.RESET_ALL)
@@ -119,6 +142,14 @@ def turnos_totales_por_veterinario(profesionales: list, consulta: list, vacunaci
         print(f"{consulta[i]+vacunacion[i]+quirurgico[i]}")
 
 def promedio_turnos_entre_veterinarios(profesionales: list, consulta: list, vacunacion: list, quirurgico: list):
+    """Calcula el promedio de turnos por tipo de servicio entre todos los veterinarios
+
+    Args:
+        profesionales (list): lista de profesionales
+        consulta (list): lista de consulta
+        vacunacion (list): lista de vacunacion
+        quirurgico (list): lista de post-quirurgico
+    """
     print(Fore.GREEN +"PROMEDIO DE TURNOS")
     print(f"{"\nProfesional":<30}", end="")
     print(f"{"Consulta general":<20}", end="")
@@ -133,6 +164,14 @@ def promedio_turnos_entre_veterinarios(profesionales: list, consulta: list, vacu
         print(f"{quirurgico[i]}")
 
 def recaudacion_total(precios: list, consulta: list, vacunacion: list, quirurgico: list) -> None:
+    """Calcula la recaudacion total de la veterinaria
+
+    Args:
+        precios (list): lista de precios
+        consulta (list): lista de consulta
+        vacunacion (list): lista de vacunacion
+        quirurgico (list): lista de post-quirurgico
+    """
     total = 0
     for i in range(len(consulta)):
         total += consulta[i] * precios[0]
@@ -142,12 +181,30 @@ def recaudacion_total(precios: list, consulta: list, vacunacion: list, quirurgic
     print(Fore.YELLOW +f"$ {total}")
 
 def ordenar_turnos(ordenamiento: list, lista_a_ordenar: list) -> list:
+    """Ordena los turnos en base un array de numeros
+
+    Args:
+        ordenamiento (list): array con numeros dentro, cada uno equivale al indice a utilizar
+        lista_a_ordenar (list): lista a ordenar
+
+    Returns:
+        list: lista ordenada
+    """
     lista_nueva = [None for _ in range(len(lista_a_ordenar))]
     for i in range(len(ordenamiento)):
         lista_nueva[i] = lista_a_ordenar[ordenamiento[i]]
     return lista_nueva
 
 def recaudacion_por_servicio(profesionales: list, precios: list, consulta: list, vacunacion: list, quirurgico: list) -> None:
+    """Muestra lo recaudado por cada profesional
+
+    Args:
+        profesionales (list): lista de profesionales
+        precios (list): lista de precios
+        consulta (list): lista de consulta
+        vacunacion (list): lista de vacunacion
+        quirurgico (list): lista de post-quirurgico
+    """
     profesionales_lista = normalizar_lista_str(profesionales)
     ordenamiento = [i for i in range(len(profesionales_lista))]
     ordenar_alfabeticamente(profesionales_lista, ordenamiento)
@@ -162,6 +219,14 @@ def recaudacion_por_servicio(profesionales: list, precios: list, consulta: list,
         print(f"$ {consulta_ordenada[i]*precios[0] + vacunacion_ordenada[i]*precios[1] + quirurgico_ordenada[i]*precios[2]}")
 
 def porcentaje_por_servicio(servicios:list, consulta: list, vacunacion: list, quirurgico: list) -> None:
+    """Muestra el porcentaje de cada tipo de servicio respecto al total general de turnos
+
+    Args:
+        servicios (list): lista de servicios
+        consulta (list): lista de consulta
+        vacunacion (list): lista de vacunacion
+        quirurgico (list): lista de post-quirurgico
+    """
     total_servicios = 0
     total_por_servicio = [0 for _ in range(len(servicios))]
     for i in range(len(consulta)):
@@ -181,6 +246,14 @@ def porcentaje_por_servicio(servicios:list, consulta: list, vacunacion: list, qu
         print(f"% {porcentaje}")
 
 def profesional_menos_turnos(profesionales: list, consulta: list, vacunacion: list, quirurgico: list) -> None:
+    """Muestra el veterinario con menor cantidad total de turnos
+
+    Args:
+        profesionales (list): lista de profesionales
+        consulta (list): lista de consulta
+        vacunacion (list): lista de vacunacion
+        quirurgico (list): lista de post-quirurgico
+    """
     profesional_sin_laburo = ""
     cantidad_menor_turnos = 0
     cantidad_turnos = 0
@@ -196,6 +269,14 @@ def profesional_menos_turnos(profesionales: list, consulta: list, vacunacion: li
     print(f"{cantidad_menor_turnos}")
 
 def porcentaje_turnos_por_profesional(profesionales: list, consulta: list, vacunacion: list, quirurgico: list):
+    """Muestra el porcentaje de turnos por veterinario respecto al total general
+
+    Args:
+        profesionales (list): lista de profesionales
+        consulta (list): lista de consulta
+        vacunacion (list): lista de vacunacion
+        quirurgico (list): lista de post-quirurgico
+    """
     total_turnos = 0
     for i in range(len(profesionales)):
         total_turnos += consulta[i] + vacunacion[i] + quirurgico[i]
@@ -210,8 +291,16 @@ def porcentaje_turnos_por_profesional(profesionales: list, consulta: list, vacun
             porcentaje = 0.0
         print(f"% {porcentaje}")
 
-# Servicio/s más solicitado/s por cada veterinario
 def servicio_mas_solicitado(profesionales: list, servicios:list, consulta: list, vacunacion: list, quirurgico: list):
+    """Muestra el servicio/s más solicitado/s por cada veterinario
+
+    Args:
+        profesionales (list): lista de profesionales
+        servicios (list): lista de servicios
+        consulta (list): lista de consulta
+        vacunacion (list): lista de vacunacion
+        quirurgico (list): lista de post-quirurgico
+    """
     print(Fore.GREEN +"SERVICIO MAS SOLICITADO")
     print(f"{"\nProfesional":<30}", end="")
     print("Servicio\n"+ Style.RESET_ALL)
