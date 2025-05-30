@@ -27,3 +27,6 @@ datos_precios = [
     20000,
     30000
 ]
+
+
+print(ord("1")+ord("0"))

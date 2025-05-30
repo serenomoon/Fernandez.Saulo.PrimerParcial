@@ -316,4 +316,51 @@ def servicio_mas_solicitado(profesionales: list, servicios:list, consulta: list,
         print(f"{palabra_normalizada(servicio_mas_solicitado)}")
 
 
+def servicio_mas_recaudado(servicios: list, precios:list, consulta: list, vacunacion: list, quirurgico: list) -> None:
+    total_consulta = 0 
+    total_vacunacion = 0 
+    total_quirurgico = 0 
+    for i in range(len(consulta)):
+        total_consulta += consulta[i] * precios[0]
+        total_vacunacion += vacunacion[i] * precios[1]
+        total_quirurgico += quirurgico[i] * precios[2]
+    print(Fore.GREEN +"SERVICIO CON MAS RECAUDACION")
+    print(f"{"\nServicio":<30}", end="")
+    print("Recaudado\n"+ Style.RESET_ALL)
+    if total_consulta > total_vacunacion and total_consulta > total_quirurgico:
+        print(Fore.YELLOW +f"{palabra_normalizada(servicios[0]):<29}", end="")
+        print(f"$ {total_consulta}")
+    elif total_vacunacion > total_quirurgico:
+        print(Fore.YELLOW +f"{palabra_normalizada(servicios[1]):<29}", end="")
+        print(f"$ {total_vacunacion}")
+    elif total_quirurgico > total_vacunacion:
+        print(Fore.YELLOW +f"{palabra_normalizada(servicios[2]):<29}", end="")
+        print(f"$ {total_quirurgico}")
+    else:
+        print(Fore.RED +"No hay ningun servicio activo")
+
+def porcentaje_turnos_alfabeticamente(profesional: list, consulta: list, vacunacion: list, quirurgico: list) -> None:
+    profesionales_sn = profesional
+    ordenamiento = [i for i in range(len(profesional))]
+    total_turnos = 0
+    consulta_ordenada = consulta
+    vacunacion_ordenada = vacunacion
+    quirurgico_ordenada = quirurgico
+    ordenar_alfabeticamente(profesionales_sn, ordenamiento)
+    print(Fore.GREEN +"PORCENTAJE DE TURNOS")
+    print(f"{"\nProfesional":<30}", end="")
+    print("Porcentaje\n"+ Style.RESET_ALL)
+    for i in range(len(ordenamiento)):
+        total_turnos += consulta[i] + vacunacion[i] + quirurgico[i]
+        consulta_ordenada[i] = consulta_ordenada[ordenamiento[i]]
+        vacunacion_ordenada[i] = vacunacion_ordenada[ordenamiento[i]]
+        quirurgico_ordenada[i] = quirurgico_ordenada[ordenamiento[i]]
+    for i in range(len(profesionales_sn)):
+        print(Fore.YELLOW +f"{palabra_normalizada(profesionales_sn[i]):<29}", end="")
+        if total_turnos != 0:
+            print(f"% {(consulta_ordenada[i] + vacunacion_ordenada[i] + quirurgico_ordenada[i]) * 100 / total_turnos}")
+        else:
+            print("No hay turnos")
+    
+    
     

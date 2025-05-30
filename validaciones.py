@@ -19,6 +19,9 @@ def menu_validacion(opcion: str, minimo: int, maximo: int) -> bool:
     if len(opcion) == 1:
         if ord(opcion) > minimo and ord(opcion) < maximo:
             validado = True
+    elif len(opcion) == 2:
+        if ord(opcion[0]) + ord(opcion[1]) == 97 or ord(opcion[0]) + ord(opcion[1]) == 98:
+            validado = True
     return validado
 
 def usuario_nombre_validacion(usuario: str) -> bool:

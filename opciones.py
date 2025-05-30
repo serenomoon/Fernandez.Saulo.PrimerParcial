@@ -61,7 +61,9 @@ def opcion_4(consulta:list , vacunacion: list, quirurgico: list):
         "6- Veterinario con menor cantidad total de turnos atendidos\n" \
         "7- Porcentaje de turnos por veterinario respecto al total general\n" \
         "8- Servicio/s más solicitado/s por cada veterinario\n" \
-        "9- Volver al Menu\n" \
+        "9- El servicio que más recaudó en promedio.\n" \
+        "10- Porcentaje de turnos por veterinario respecto del total general, junto con su nombre. Ordenados alfabéticamente\n" \
+        "11- Volver al Menu\n" \
         "Ingrese una opcion: "
     )
         opcion_validada = menu_validacion(opcion_consulta, 48, 58)
@@ -93,6 +95,12 @@ def opcion_4(consulta:list , vacunacion: list, quirurgico: list):
                     servicio_mas_solicitado(datos_profesionales, datos_servicios, consulta, vacunacion, quirurgico)
                     system("pause")
                 case "9":
+                    servicio_mas_recaudado(datos_servicios, datos_precios, consulta, vacunacion, quirurgico)
+                    system("pause")
+                case "10":
+                    porcentaje_turnos_alfabeticamente(datos_profesionales, consulta, vacunacion, quirurgico)
+                    system("pause")
+                case "11":
                     print("Volviendo al Menu...")
                     submenu = False
         else:
